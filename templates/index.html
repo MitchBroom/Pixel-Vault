@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Vault | Digital Gaming Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">Pixel Vault</div>
+        <nav>
+            <button id="nav-shop" class="active" onclick="switchView('shop')">Storefront</button>
+            <button id="nav-cart" onclick="switchView('cart')">Cart (<span id="cart-count">0</span>)</button>
+            <button id="nav-admin" onclick="switchView('admin')">Admin Portal</button>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- 1. STOREFRONT VIEW -->
+        <section id="view-shop" class="view active">
+            <h2 style="margin-bottom: 1rem;">Digital Games Catalog</h2>
+            <div id="product-list" class="product-grid">
+                {% for product in products %}
+                <div class="product-card">
+                    <img src="{{ product['image'] }}" alt="{{ product['title'] }}">
+
+                    <div class="product-info">
+                        <div class="product-title">{{ product['title'] }}</div>
+                        <div class="product-desc">{{ product['description'] }}</div>
+
+                        <div class="product-bottom">
+                            <span class="price">
+                                ${{ "%.2f"|format(product['sell_price']) }}
+                            </span>
+
+                            <button class="btn-add" data-product-id="{{ product['id'] }}"
+                                onclick="addToCart(Number(this.dataset.productId))">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+            </div>
+        </section>
+
+        <!-- 2. CART & CHECKOUT VIEW -->
+        <section id="view-cart" class="view">
+            <h2 style="margin-bottom: 1rem;">Shopping Cart</h2>
+            <div class="cart-layout">
+                <div>
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items"></tbody>
+                    </table>
+                    <div id="cart-empty" class="empty-text">Your cart is currently empty.</div>
+                </div>
+
+                <div class="checkout-box">
+                    <h3>Delivery Details</h3>
+                    <form id="checkout-form" onsubmit="handleCheckout(event)" novalidate>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
+                            <span class="error-msg" id="email-err">Enter a valid email address.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="0412345678" required>
+                            <span class="error-msg" id="phone-err">Enter a valid 10-digit mobile number.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="suburb">Suburb</label>
+                            <input type="text" id="suburb" required>
+                            <span class="error-msg" id="suburb-err">Suburb is required.</span>
+                        </div>
+                        <div style="margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                                <span>Total:</span>
+                                <span id="cart-total">$0.00</span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-checkout">Complete Sale</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. ADMIN SALES SUMMARY VIEW -->
+        <section id="view-admin" class="view">
+            <h2 style="margin-bottom: 1rem;">Admin Sales Dashboard</h2>
+            <div class="admin-summary">
+                <div class="stat-card">
+                    <h4>Total Sales Count</h4>
+                    <p id="stat-count">0</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Gross Revenue</h4>
+                    <p id="stat-revenue">$0.00</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Cost</h4>
+                    <p id="stat-cost">$0.00</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Net Profit</h4>
+                    <p id="stat-profit" style="color: var(--success);">$0.00</p>
+                </div>
+            </div>
+
+            <h3>Completed Transactions</h3>
+
+            <div class="admin-table-wrapper">
+                <table class="admin-table" style="margin-top: 0.5rem;">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Purchaser Info</th>
+                            <th>Items Sourced</th>
+                            <th>Total Cost Price</th>
+                            <th>Total Sale Price</th>
+                            <th>Profit</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-sales-list"></tbody>
+                </table>
+            </div>
+
+            <div id="admin-empty" class="empty-text">
+                No completed sales recorded yet.
+            </div>
+        </section>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
