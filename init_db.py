@@ -45,16 +45,6 @@ cursor.execute("""
 cursor.execute("DELETE FROM products")
 
 products = [
-    ("Cyber Odyssey 2088", "Open-world futuristic RPG.", 25.00, 59.99, "https://picsum.photos/seed/cyber/300/200"),
-    ("Pixel Dungeon Crawl", "Retro roguelike dungeon explorer.", 4.00, 14.99, "https://picsum.photos/seed/dungeon/300/200"),
-    ("Galactic Commander", "Real-time space strategy simulator.", 15.00, 39.99, "https://picsum.photos/seed/galaxy/300/200"),
-    ("Shadow Rogue: Reborn", "Stealth-action platforming adventure.", 8.00, 19.99, "https://picsum.photos/seed/rogue/300/200"),
-    ("Apex Speed Drift", "High-octane arcade street racing.", 18.00, 49.99, "https://picsum.photos/seed/racing/300/200"),
-    ("Mythic Realms MMORPG", "Fantasy multiplayer online quest.", 20.00, 49.99, "https://picsum.photos/seed/realm/300/200"),
-    ("Eerie Whispers", "Psychological survival horror story.", 10.00, 29.99, "https://picsum.photos/seed/horror/300/200"),
-    ("Cozy Island Builder", "Relaxing sandbox farming simulator.", 6.00, 24.99, "https://picsum.photos/seed/cozy/300/200"),
-    ("Mech Tactics Prime", "Turn-based tactical mecha combat.", 12.00, 34.99, "https://picsum.photos/seed/mech/300/200"),
-    ("Neon Strike Ops", "Competitive fast-paced multiplayer FPS.", 14.00, 29.99, "https://picsum.photos/seed/strike/300/200")
 ]
 
 cursor.executemany("""
