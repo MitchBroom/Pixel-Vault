@@ -1,8 +1,11 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, session
 import sqlite3
 import re
+import os
+import hmac
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY", "local-development-secret")
 
 
 @app.route("/")
@@ -154,8 +157,39 @@ def checkout():
     finally:
         connection.close()
 
+@app.route("/api/admin/login", methods=["POST"])
+def admin_login():
+    data = request.get_json()
+
+    password = data.get("password", "")
+    admin_password = os.environ.get("ADMIN_PASSWORD", "pixelvaultadmin")
+
+    if not hmac.compare_digest(password, admin_password):
+        return jsonify({"error": "Invalid admin password"}), 401
+
+    session["admin_logged_in"] = True
+
+    return jsonify({"success": True})
+
+
+@app.route("/api/admin/logout", methods=["POST"])
+def admin_logout():
+    session.pop("admin_logged_in", None)
+
+    return jsonify({"success": True})
+
+
+@app.route("/api/admin/status")
+def admin_status():
+    return jsonify({
+        "loggedIn": session.get("admin_logged_in", False)
+    })
+
 @app.route("/api/admin/sales")
 def admin_sales():
+    if not session.get("admin_logged_in"):
+        return jsonify({"error": "Unauthorized"}), 401
+
     connection = sqlite3.connect("pixelvault.db")
     connection.row_factory = sqlite3.Row
 
@@ -176,6 +210,7 @@ def admin_sales():
 
         sales.append({
             "orderId": order["order_number"],
+            "createdAt": order["created_at"],
             "email": order["email"],
             "phone": order["phone"],
             "suburb": order["suburb"],

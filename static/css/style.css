@@ -1,3 +1,4 @@
+/* Global Styles */
 :root {
     --bg-color: #0f172a;
     --card-bg: #1e293b;
@@ -24,6 +25,7 @@ body {
     padding-bottom: 2rem;
 }
 
+/* Header Styles */
 header {
     background-color: #020617;
     padding: 1rem 2rem;
@@ -44,6 +46,7 @@ header {
     letter-spacing: 1px;
 }
 
+/* Navigation Styles */
 nav button {
     background: transparent;
     border: 1px solid var(--border);
@@ -247,7 +250,93 @@ nav button.active {
     margin-top: 1rem;
 }
 
+/* Admin Login Styles */
+
+.admin-login-card {
+    max-width: 420px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.admin-login-card h2 {
+    margin-bottom: 0.75rem;
+}
+
+.admin-login-text {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.admin-login-card label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.admin-login-card input {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1rem;
+    background: var(--input-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.admin-login-card input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.admin-login-card .btn-primary {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.9rem;
+}
+
+#admin-login-error {
+    margin-bottom: 0.75rem;
+    color: #ff5c5c;
+    font-size: 0.9rem;
+}
+
 /* Admin Dashboard Styles */
+
+.admin-dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.admin-dashboard-header h2 {
+    margin: 0;
+}
+
+.admin-login-card .btn-primary {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.admin-login-card .btn-primary:hover {
+    opacity: 0.9;
+}
+
+.admin-dashboard-header .btn-secondary {
+    padding: 0.65rem 1.2rem;
+}
 
 .admin-summary {
     display: grid;
@@ -279,6 +368,20 @@ nav button.active {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+}
+
+.admin-dashboard-header .btn-secondary {
+    padding: 0.65rem 1.2rem;
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.admin-dashboard-header .btn-secondary:hover {
+    background: #7c3aed;
 }
 
 .admin-table {
@@ -330,23 +433,5 @@ nav button.active {
 
     .admin-table {
         min-width: 750px;
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
-    header nav {
-        width: 100%;
-        display: flex;
-        gap: 0.5rem;
-    }
-
-    header nav button {
-        flex: 1;
-        padding: 0.6rem 0.4rem;
-        font-size: 0.8rem;
     }
 }

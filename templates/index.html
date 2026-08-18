@@ -102,48 +102,79 @@
 
         <!-- 3. ADMIN SALES SUMMARY VIEW -->
         <section id="view-admin" class="view">
-            <h2 style="margin-bottom: 1rem;">Admin Sales Dashboard</h2>
-            <div class="admin-summary">
-                <div class="stat-card">
-                    <h4>Total Sales Count</h4>
-                    <p id="stat-count">0</p>
-                </div>
-                <div class="stat-card">
-                    <h4>Gross Revenue</h4>
-                    <p id="stat-revenue">$0.00</p>
-                </div>
-                <div class="stat-card">
-                    <h4>Total Cost</h4>
-                    <p id="stat-cost">$0.00</p>
-                </div>
-                <div class="stat-card">
-                    <h4>Net Profit</h4>
-                    <p id="stat-profit" style="color: var(--success);">$0.00</p>
-                </div>
-            </div>
+            <div id="admin-login" class="admin-login-card">
+                <h2>Admin Login</h2>
 
-            <h3>Completed Transactions</h3>
+                <p class="admin-login-text">
+                    Enter the administrator password to access the sales dashboard.
+                </p>
 
-            <div class="admin-table-wrapper">
-                <table class="admin-table" style="margin-top: 0.5rem;">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Purchaser Info</th>
-                            <th>Items Sourced</th>
-                            <th>Total Cost Price</th>
-                            <th>Total Sale Price</th>
-                            <th>Profit</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-sales-list"></tbody>
-                </table>
-            </div>
+                <label for="admin-password">Password</label>
 
-            <div id="admin-empty" class="empty-text">
-                No completed sales recorded yet.
+                <input type="password" id="admin-password" placeholder="Enter admin password"
+                    autocomplete="current-password">
+
+                <div id="admin-login-error" class="error-text" style="display: none;">
+                    Invalid admin password.
+                </div>
+
+                <button type="button" class="btn-primary" onclick="handleAdminLogin()">
+                    Login
+                </button>
             </div>
-        </section>
+            <div id="admin-dashboard" style="display: none;">
+                <div class="admin-dashboard-header">
+                    <h2>Admin Sales Dashboard</h2>
+
+                    <button type="button" class="btn-secondary" onclick="handleAdminLogout()">
+                        Logout
+                    </button>
+                </div>
+
+                <div class="admin-summary">
+                    <div class="stat-card">
+                        <h4>Total Sales Count</h4>
+                        <p id="stat-count">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Gross Revenue</h4>
+                        <p id="stat-revenue">$0.00</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Total Cost</h4>
+                        <p id="stat-cost">$0.00</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Net Profit</h4>
+                        <p id="stat-profit" style="color: var(--success);">$0.00</p>
+                    </div>
+                </div>
+
+                <h3>Completed Transactions</h3>
+
+                <div class="admin-table-wrapper">
+                    <table class="admin-table" style="margin-top: 0.5rem;">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date / Time</th>
+                                <th>Purchaser Info</th>
+                                <th>Items Sourced</th>
+                                <th>Total Cost Price</th>
+                                <th>Total Sale Price</th>
+                                <th>Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-sales-list"></tbody>
+                    </table>
+                </div>
+
+                <div id="admin-empty" class="empty-text">
+                    No completed sales recorded yet.
+                </div>
+
+            </div> <!-- closes admin-dashboard -->
+        </section> <!-- closes view-admin -->
     </div>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
